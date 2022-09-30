@@ -23,7 +23,10 @@
         [int] $Width,
 
         [Parameter(Mandatory = $false, ParameterSetName = 'CustomSize')]
-        [int] $Height
+        [int] $Height,
+
+        [Parameter(Mandatory = $false)]
+        [switch] $Invert
     )
  
     begin {
@@ -52,16 +55,17 @@
 
         $graph.Dispose()
         $img.Dispose()
-        $bmp.Save($tempFile)
-        $bmp.Dispose()
 
-        $BitMap = [System.Drawing.Bitmap]::FromFile((Resolve-Path $tempFile).ProviderPath)
-        $symbols = "@%M#Xomx?t+~:,. "
+        if ($Invert) {
+            $symbols = " .,:~+t?xmoX#M%@"
+        } else {
+            $symbols = "@%M#Xomx?t+~:,. "
+        }
         $res = ""
 
-        foreach ($h in 1..$BitMap.Height) {
-            foreach ($w in 1..$BitMap.Width) {
-                $px = $BitMap.GetPixel($w - 1, $h - 1)
+        foreach ($h in 1..$bmp.Height) {
+            foreach ($w in 1..$bmp.Width) {
+                $px = $bmp.GetPixel($w - 1, $h - 1)
                 $brightness = (0.2126 * $px.R + 0.7152 * $px.G + 0.0722 * $px.B)
 
                 if ($brightness -le 15) { $res += $symbols[0] + " " } 

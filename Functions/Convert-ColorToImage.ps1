@@ -4,7 +4,7 @@
  .DESCRIPTION
     Converts a color code to a solid image.
  .EXAMPLE
-
+    Convert-ColorToImage -OutFile "C:\test.jpg" -Width 256 -Height 256 -RGB @(40, 9, 150)
  .INPUTS
  .OUTPUTS
  .NOTES
@@ -14,7 +14,7 @@
  #>
  
 function Convert-ColorToImage {
-    [CmdletBinding(DefaultParameterSetName = 'AutoSize')]
+    [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true)]
         [string] $OutFile,
@@ -25,14 +25,17 @@ function Convert-ColorToImage {
         [Parameter(Mandatory = $false)]
         [int] $Height,
 
-        [Parameter(Mandatory = $false)]
-        [int] $R,
+        # [Parameter(Mandatory = $false)]
+        # [int] $R,
+
+        # [Parameter(Mandatory = $false)]
+        # [int] $G,
+
+        # [Parameter(Mandatory = $false)]
+        # [int] $B,
 
         [Parameter(Mandatory = $false)]
-        [int] $G,
-
-        [Parameter(Mandatory = $false)]
-        [int] $B
+        [int[]] $RGB
     )
  
     begin {
@@ -43,7 +46,7 @@ function Convert-ColorToImage {
         $bitmap = new-object System.Drawing.Bitmap $Width, $Height
         $graphics = [System.Drawing.Graphics]::FromImage($bitmap)
 
-        $color = [System.Drawing.Color]::FromArgb($R, $G, $B)
+        $color = [System.Drawing.Color]::FromArgb($RGB[0], $RGB[1], $RGB[2])
 
         $graphics.Clear($color)
         $graphics.DrawImage($bitmap, 0, 0, $Width, $Height)

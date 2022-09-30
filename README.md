@@ -1,5 +1,3 @@
 # PSImageToolbox
 
-Test
-
-## Test
+A few PowerShell Cmdlets to work (or play) with images, colors etc.

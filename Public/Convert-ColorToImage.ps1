@@ -39,23 +39,23 @@ function Convert-ColorToImage {
     )
  
     begin {
-        Add-Type -AssemblyName System.Drawing
+      Add-Type -AssemblyName System.Drawing
     }
  
     process {
-        $bitmap = new-object System.Drawing.Bitmap $Width, $Height
-        $graphics = [System.Drawing.Graphics]::FromImage($bitmap)
+      $bitmap = new-object System.Drawing.Bitmap $Width, $Height
+      $graphics = [System.Drawing.Graphics]::FromImage($bitmap)
 
-        $color = [System.Drawing.Color]::FromArgb($RGB[0], $RGB[1], $RGB[2])
+      $color = [System.Drawing.Color]::FromArgb($RGB[0], $RGB[1], $RGB[2])
 
-        $graphics.Clear($color)
-        $graphics.DrawImage($bitmap, 0, 0, $Width, $Height)
+      $graphics.Clear($color)
+      $graphics.DrawImage($bitmap, 0, 0, $Width, $Height)
 
-        $graphics.Dispose() 
-        $bitmap.Save($OutFile) 
+      $graphics.Dispose() 
     }
     
     end {
-
+      Write-Verbose "Saved the image to $OutFile."
+      $bitmap.Save($OutFile) 
     }
 }

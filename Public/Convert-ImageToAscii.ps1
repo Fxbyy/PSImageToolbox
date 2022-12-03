@@ -30,7 +30,6 @@
     )
  
     begin {
-        $tempFile = "$PSScriptRoot\temp.jpg"
         [void][System.Reflection.Assembly]::LoadWithPartialName("System.Drawing")
 
         $img = [System.Drawing.Image]::FromFile((Get-Item $InFile))
@@ -91,9 +90,7 @@
     }
  
     end {
-        $BitMap.Dispose()
-        Remove-Item $tempFile -Force
-
+        # $BitMap.Dispose()
         $res
     }
 }

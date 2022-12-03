@@ -43,5 +43,6 @@ function Resize-Image {
     
     end {
         $resizedImage.Save($OutFile)
+        Write-Verbose "Resized image ($($Width)px * $($Height)px) and saved it to $OutFile."
     }
 }

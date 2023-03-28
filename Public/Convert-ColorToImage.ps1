@@ -14,35 +14,35 @@
  #>
  
 function Convert-ColorToImage {
-    [CmdletBinding()]
-    param (
-        [Parameter(Mandatory = $true)]
-        [string] $OutFile,
+   [CmdletBinding()]
+   param (
+      [Parameter(Mandatory = $true)]
+      [string] $OutFile,
 
-        [Parameter(Mandatory = $false)]
-        [int] $Width,
+      [Parameter(Mandatory = $false)]
+      [int] $Width,
 
-        [Parameter(Mandatory = $false)]
-        [int] $Height,
+      [Parameter(Mandatory = $false)]
+      [int] $Height,
 
-        # [Parameter(Mandatory = $false)]
-        # [int] $R,
+      # [Parameter(Mandatory = $false)]
+      # [int] $R,
 
-        # [Parameter(Mandatory = $false)]
-        # [int] $G,
+      # [Parameter(Mandatory = $false)]
+      # [int] $G,
 
-        # [Parameter(Mandatory = $false)]
-        # [int] $B,
+      # [Parameter(Mandatory = $false)]
+      # [int] $B,
 
-        [Parameter(Mandatory = $false)]
-        [int[]] $RGB
-    )
+      [Parameter(Mandatory = $false)]
+      [int[]] $RGB
+   )
  
-    begin {
+   begin {
       Add-Type -AssemblyName System.Drawing
-    }
+   }
  
-    process {
+   process {
       $bitmap = new-object System.Drawing.Bitmap $Width, $Height
       $graphics = [System.Drawing.Graphics]::FromImage($bitmap)
 
@@ -52,10 +52,10 @@ function Convert-ColorToImage {
       $graphics.DrawImage($bitmap, 0, 0, $Width, $Height)
 
       $graphics.Dispose() 
-    }
+   }
     
-    end {
+   end {
       Write-Verbose "Saved the image to $OutFile."
       $bitmap.Save($OutFile) 
-    }
+   }
 }

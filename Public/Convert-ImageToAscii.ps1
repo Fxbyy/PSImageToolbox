@@ -12,8 +12,7 @@
  .FUNCTIONALITY
     Converts an image to ASCII art.
  #>
- 
- function Convert-ImageToAscii {
+function Convert-ImageToAscii {
     [CmdletBinding(DefaultParameterSetName = 'AutoSize')]
     param (
         [Parameter(Mandatory = $true)]
@@ -37,10 +36,12 @@
         if ($PSCmdlet.ParameterSetName -eq 'AutoSize') {
             [int]$Height = $Host.UI.RawUI.WindowSize.Height * ($img.Size.Width / $img.Size.Height)
             [int]$Width = $Height * ($img.Size.Width / $img.Size.Height)
-        } else {
+        }
+        else {
             if ($null -eq $Height -or $Height -eq 0) {
                 [int]$Height = $Width * ($img.Size.Height / $img.Size.Width)
-            } elseif ($null -eq $Width -or $Width -eq 0) {
+            }
+            elseif ($null -eq $Width -or $Width -eq 0) {
                 [int]$Width = $Height * ($img.Size.Width / $img.Size.Height)
             }
         }
@@ -57,7 +58,8 @@
 
         if ($Invert) {
             $symbols = " .,:~+t?xmoX#M%@"
-        } else {
+        }
+        else {
             $symbols = "@%M#Xomx?t+~:,. "
         }
         $res = ""
